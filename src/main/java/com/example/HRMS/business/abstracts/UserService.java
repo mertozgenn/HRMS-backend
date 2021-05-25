@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.example.HRMS.core.utilities.results.DataResult;
 import com.example.HRMS.core.utilities.results.Result;
-import com.example.HRMS.entities.concretes.Position;
+import com.example.HRMS.entities.concretes.User;
 
-public interface PositionService {
-	Result add(Position position);
-	DataResult<List<Position>> getAll();
+public interface UserService {
+	DataResult<List<User>> getAll();
+	Result update(User user);
+	DataResult<User> getByEmail(String email);
 }

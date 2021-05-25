@@ -3,22 +3,30 @@ package com.example.HRMS.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @PrimaryKeyJoinColumn(name="userId")
 @Table(name="system_employees")
+@AllArgsConstructor
+@NoArgsConstructor
 public class SystemEmployee extends User {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
-	private int userId;
+	private int id;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -28,17 +36,4 @@ public class SystemEmployee extends User {
 	
 	@Column(name="position_id")
 	private int positionId;
-	
-	public SystemEmployee() {}
-
-	public SystemEmployee(int id, String email, String password, String firstName, String lastName,
-			int positionId) {
-		super(id, email, password);
-		this.userId = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.positionId = positionId;
-	}
-	
-
 }

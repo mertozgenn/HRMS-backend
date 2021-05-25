@@ -3,23 +3,29 @@ package com.example.HRMS.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="users")
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+@NoArgsConstructor
 public class User {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int userId;
+	private int id;
 	
 	@Column(name="email")
 	private String email;
@@ -27,13 +33,12 @@ public class User {
 	@Column(name="password")
 	private String password;
 	
-	public User() {}
+	@Column(name="email_verified")
+	private boolean emailVerified;
 
-	public User(int id, String email, String password) {
-		this.userId = id;
+	public User(String email, String password) {
+		super();
 		this.email = email;
 		this.password = password;
 	}
-	
-	 
 }
