@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import com.example.HRMS.business.abstracts.EmailService;
 import com.example.HRMS.business.abstracts.UserService;
 import com.example.HRMS.business.constants.Messages;
+import com.example.HRMS.core.entities.User;
 import com.example.HRMS.core.utilities.results.ErrorResult;
 import com.example.HRMS.core.utilities.results.Result;
 import com.example.HRMS.core.utilities.results.SuccessResult;
-import com.example.HRMS.entities.concretes.User;
 
 @Service
 public class EmailManager implements EmailService {

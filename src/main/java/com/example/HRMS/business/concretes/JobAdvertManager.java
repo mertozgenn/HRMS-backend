@@ -18,7 +18,7 @@ import com.example.HRMS.entities.concretes.City;
 import com.example.HRMS.entities.concretes.Employer;
 import com.example.HRMS.entities.concretes.JobAdvert;
 import com.example.HRMS.entities.concretes.Position;
-import com.example.HRMS.entities.concretes.dtos.JobAdvertToAddDto;
+import com.example.HRMS.entities.dtos.JobAdvertToAddDto;
 
 @Service
 public class JobAdvertManager implements JobAdvertService{

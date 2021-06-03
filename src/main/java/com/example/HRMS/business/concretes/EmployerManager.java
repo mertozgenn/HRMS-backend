@@ -17,7 +17,7 @@ import com.example.HRMS.core.utilities.results.SuccessDataResult;
 import com.example.HRMS.core.utilities.results.SuccessResult;
 import com.example.HRMS.dataAccess.abstracts.EmployerDao;
 import com.example.HRMS.entities.concretes.Employer;
-import com.example.HRMS.entities.concretes.dtos.EmployerToRegisterDto;
+import com.example.HRMS.entities.dtos.EmployerToRegisterDto;
 
 @Service
 public class EmployerManager implements EmployerService {
@@ -44,7 +44,7 @@ public class EmployerManager implements EmployerService {
 		Employer employer = new Employer(employerToRegisterDto.getEmail(), employerToRegisterDto.getPassword(),
 				employerToRegisterDto.getWebsite(), employerToRegisterDto.getPhoneNumber(), employerToRegisterDto.getCompanyName());
 		
-		Result result = BusinessRules.run(checkAllFields(employer), checkIfEmailExists(employer.getEmail()), 
+		Result result = BusinessRules.run(checkIfEmailExists(employer.getEmail()), 
 				checkDomain(employer.getEmail(), employer.getWebsite()));
 		
 		if (result != null) {
@@ -56,16 +56,9 @@ public class EmployerManager implements EmployerService {
 		return new SuccessResult(Messages.added);
 	}
 	
-	private Result checkAllFields(Employer employer) {
-		if (employer.getCompanyName() == null && employer.getEmail() == null && 
-				employer.getPassword() == null && employer.getPhoneNumber() == null && employer.getWebsite() == null) {
-			return new ErrorResult(Messages.allFieldsNecessary);
-		}
-		return new SuccessResult();
-	}
 	
 	private Result checkIfEmailExists(String email) {
-		if (this.employerDao.findByEmail(email) != null) {
+		if (this.employerDao.getByEmail(email) != null) {
 			return new ErrorResult(Messages.emailExists);
 		}
 		return new SuccessResult();
@@ -88,7 +81,7 @@ public class EmployerManager implements EmployerService {
 	
 	@Override
 	public DataResult<Employer> getByEmail(String email) {
-		Employer employer = this.employerDao.findByEmail(email);
+		Employer employer = this.employerDao.getByEmail(email);
 		if (employer == null) {
 			return new ErrorDataResult<Employer>(Messages.notFound);
 		}
@@ -98,6 +91,14 @@ public class EmployerManager implements EmployerService {
 	public Result update(Employer employer) {
 		this.employerDao.save(employer);
 		return new SuccessResult();
+	}
+	@Override
+	public DataResult<Employer> getById(int id) {
+		Employer employer = this.employerDao.getById(id);
+		if (employer == null) {
+			return new ErrorDataResult<Employer>(Messages.notFound);
+		}
+		return new SuccessDataResult<Employer>(employer);
 	}
 
 }

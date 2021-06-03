@@ -1,4 +1,4 @@
-package com.example.HRMS.entities.concretes;
+package com.example.HRMS.core.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

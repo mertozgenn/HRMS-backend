@@ -17,4 +17,5 @@ public class Messages {
 	public static String personInfoError = "Your information does not match";
 	public static String positionNameExists = "Position name already exists";
 	public static String updated = "Updated";
+	public static String validationErrors = "Validation Errors";
 }

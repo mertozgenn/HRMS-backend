@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.HRMS.business.abstracts.CityService;
 import com.example.HRMS.core.utilities.results.DataResult;
+import com.example.HRMS.core.utilities.results.Result;
 import com.example.HRMS.core.utilities.results.SuccessDataResult;
+import com.example.HRMS.core.utilities.results.SuccessResult;
 import com.example.HRMS.dataAccess.abstracts.CityDao;
 import com.example.HRMS.entities.concretes.City;
 
@@ -23,6 +25,11 @@ public class CityManager implements CityService {
 	@Override
 	public DataResult<List<City>> getAll() {
 		return new SuccessDataResult<List<City>>(this.cityDao.findAll());
+	}
+	@Override
+	public Result add(City city) {
+		this.cityDao.save(city);
+		return new SuccessResult();
 	}
 
 }

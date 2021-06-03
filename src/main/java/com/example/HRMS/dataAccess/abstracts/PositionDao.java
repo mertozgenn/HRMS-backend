@@ -7,5 +7,5 @@ import com.example.HRMS.entities.concretes.Position;
 
 public interface PositionDao extends JpaRepository<Position, Integer> {
 
-	Position findByName(String name);
+	Position getByName(String name);
 }

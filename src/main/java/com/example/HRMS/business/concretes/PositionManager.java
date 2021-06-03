@@ -32,7 +32,7 @@ public class PositionManager implements PositionService {
 
 	@Override
 	public Result add(Position position) {
-		if (this.positionDao.findByName(position.getName()) != null) {
+		if (this.positionDao.getByName(position.getName()) != null) {
 			return new ErrorResult(Messages.positionNameExists);
 		}
 		this.positionDao.save(position);

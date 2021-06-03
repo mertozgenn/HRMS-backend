@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.HRMS.core.utilities.results.DataResult;
 import com.example.HRMS.core.utilities.results.Result;
 import com.example.HRMS.entities.concretes.Employer;
-import com.example.HRMS.entities.concretes.dtos.EmployerToRegisterDto;
+import com.example.HRMS.entities.dtos.EmployerToRegisterDto;
 
 public interface EmployerService {
 
@@ -13,4 +13,5 @@ public interface EmployerService {
 	Result update(Employer employer);
 	Result add(EmployerToRegisterDto employerToRegisterDto);
 	DataResult<Employer> getByEmail(String email);
+	DataResult<Employer> getById(int id);
 }
