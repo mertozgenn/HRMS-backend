@@ -44,6 +44,8 @@ public class EmployerManager implements EmployerService {
 		Employer employer = new Employer(employerToRegisterDto.getEmail(), employerToRegisterDto.getPassword(),
 				employerToRegisterDto.getWebsite(), employerToRegisterDto.getPhoneNumber(), employerToRegisterDto.getCompanyName());
 		
+		employer.setSystemVerified(false);
+		
 		Result result = BusinessRules.run(checkIfEmailExists(employer.getEmail()), 
 				checkDomain(employer.getEmail(), employer.getWebsite()));
 		
@@ -99,6 +101,14 @@ public class EmployerManager implements EmployerService {
 			return new ErrorDataResult<Employer>(Messages.notFound);
 		}
 		return new SuccessDataResult<Employer>(employer);
+	}
+	@Override
+	public DataResult<List<Employer>> getByNotApproved() {
+		return new SuccessDataResult<List<Employer>>(this.employerDao.getBySystemVerified(false));
+	}
+	@Override
+	public DataResult<List<Employer>> getByApproved() {
+		return new SuccessDataResult<List<Employer>>(this.employerDao.getBySystemVerified(true));
 	}
 
 }

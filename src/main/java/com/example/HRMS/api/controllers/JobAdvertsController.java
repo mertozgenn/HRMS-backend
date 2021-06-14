@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ import com.example.HRMS.entities.dtos.JobAdvertToAddDto;
 
 @RestController
 @RequestMapping("/api/jobadverts")
+@CrossOrigin
 public class JobAdvertsController {
 
 	private JobAdvertService jobAdvertService;
@@ -44,24 +46,44 @@ public class JobAdvertsController {
 		return this.jobAdvertService.getAll();
 	}
 	
-	@GetMapping("/getallByActive")
-	public DataResult<List<JobAdvert>> getAllByActive(@RequestParam boolean active){
-		return this.jobAdvertService.getByActive(active);
+	@GetMapping("/getById")
+	public DataResult<JobAdvert> getById(@RequestParam int id){
+		return this.jobAdvertService.getById(id);
 	}
 	
-	@GetMapping("/getallByActiveSortedByDate")
-	public DataResult<List<JobAdvert>> getAllByActiveSortedByDate(@RequestParam boolean active){
-		return this.jobAdvertService.getByActiveSortedByDateDesc(active);
+	@GetMapping("/getallActiveAndApproved")
+	public DataResult<List<JobAdvert>> getAllByActiveAndApproved(){
+		return this.jobAdvertService.getByActiveAndApproved();
 	}
 	
-	@GetMapping("/getallByActiveAndEmployer")
-	public DataResult<List<JobAdvert>> getAllByActiveAndEmployer(@RequestParam boolean active, @RequestParam int employerId){
-		return this.jobAdvertService.getByActiveAndEmployerId(active, employerId);
+	@GetMapping("/getallByActiveAndApprovedSortedByDate")
+	public DataResult<List<JobAdvert>> getAllByActiveSortedByDate(){
+		return this.jobAdvertService.getByActiveAndApprovedSortedByDateDesc();
+	}
+	
+	@GetMapping("/getallByActiveAndApprovedAndEmployer")
+	public DataResult<List<JobAdvert>> getAllByActiveAndEmployer( @RequestParam int employerId){
+		return this.jobAdvertService.getByActiveAndApprovedAndEmployerId(employerId);
+	}
+	
+	@GetMapping("/getByNotApproved")
+	public DataResult<List<JobAdvert>> getByNotApproved(){
+		return this.jobAdvertService.getByNotApproved();
+	}
+	
+	@GetMapping("/getByEmployerId")
+	public DataResult<List<JobAdvert>> getByEmployerId(@RequestParam int id){
+		return this.jobAdvertService.getByEmployerId(id);
 	}
 	
 	@PostMapping("/add")
 	public ResponseEntity<Result> add(@Valid @RequestBody JobAdvertToAddDto jobAdvert) {
 		return ResponseEntity.ok(jobAdvertService.add(jobAdvert));
+	}
+	
+	@PostMapping("/update")
+	public ResponseEntity<Result> update(@Valid @RequestBody JobAdvert jobAdvert) {
+		return ResponseEntity.ok(jobAdvertService.update(jobAdvert));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

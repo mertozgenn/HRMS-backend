@@ -48,6 +48,21 @@ public class JobAdvert {
 	@Column(name = "active")
 	private boolean active;
 	
+	@Column(name = "remote_work")
+	private boolean remoteWork;
+	
+	@Column(name = "workplace_work")
+	private boolean workplaceWork;
+	
+	@Column(name = "full_time")
+	private boolean fullTime;
+	
+	@Column(name = "part_time")
+	private boolean partTime;
+	
+	@Column(name = "approved")
+	private boolean approved;
+	
 	@ManyToOne
 	@JoinColumn(name = "city_id")
 	private City city;

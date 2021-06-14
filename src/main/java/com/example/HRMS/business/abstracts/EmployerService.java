@@ -14,4 +14,6 @@ public interface EmployerService {
 	Result add(EmployerToRegisterDto employerToRegisterDto);
 	DataResult<Employer> getByEmail(String email);
 	DataResult<Employer> getById(int id);
+	DataResult<List<Employer>> getByNotApproved();
+	DataResult<List<Employer>> getByApproved();
 }

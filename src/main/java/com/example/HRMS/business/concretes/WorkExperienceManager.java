@@ -54,6 +54,24 @@ public class WorkExperienceManager implements WorkExperienceService {
 	@Override
 	public DataResult<List<WorkExperience>> getByUserIdSortedByQuitYearDesc(int userId) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "quitYear");
-		return new SuccessDataResult<List<WorkExperience>>(this.workExperienceDao.getByUserId(userId, sort));
+		List<WorkExperience> workExperiences = this.workExperienceDao.getByUserId(userId, sort);
+		int zeroCount = 0;
+		for (WorkExperience workExperience : workExperiences) {
+			if (workExperience.getQuitYear() == 0) {
+				zeroCount++;
+			}
+		}
+		for (int i = 0; i < zeroCount; i++) {
+			workExperiences.add(0, workExperiences.get(workExperiences.size() - 1));
+			workExperiences.remove(workExperiences.size() - 1);
+			
+		}
+		return new SuccessDataResult<List<WorkExperience>>(workExperiences);
+	}
+
+	@Override
+	public Result delete(int id) {
+		this.workExperienceDao.deleteById(id);
+		return new SuccessResult();
 	}
 }

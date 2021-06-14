@@ -54,7 +54,25 @@ public class JobseekerEducationManager implements JobseekerEducationService {
 	@Override
 	public DataResult<List<JobseekerEducation>> getByUserIdSortedByGraduationYearDesc(int userId) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "graduationYear");
-		return new SuccessDataResult<List<JobseekerEducation>>(this.jobseekerEducationDao.getByUserId(userId, sort));
+		List<JobseekerEducation> educations = this.jobseekerEducationDao.getByUserId(userId, sort);
+		int zeroCount = 0;
+		for (JobseekerEducation jobseekerEducation : educations) {
+			if (jobseekerEducation.getGraduationYear() == 0) {
+				zeroCount++;
+			}
+		}
+		for (int i = 0; i < zeroCount; i++) {
+			educations.add(0, educations.get(educations.size() - 1));
+			educations.remove(educations.size() - 1);
+			
+		}
+		return new SuccessDataResult<List<JobseekerEducation>>(educations);
+	}
+
+	@Override
+	public Result delete(int id) {
+		this.jobseekerEducationDao.deleteById(id);
+		return new SuccessResult();
 	}
 
 }

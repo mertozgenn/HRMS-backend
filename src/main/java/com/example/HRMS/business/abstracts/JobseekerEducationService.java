@@ -14,4 +14,5 @@ public interface JobseekerEducationService {
 	DataResult<List<JobseekerEducation>> getByUserId(int userId);
 	DataResult<List<JobseekerEducation>> getByUserIdSortedByGraduationYearDesc(int userId);
 	Result add(JobseekerEducationToAddDto jobseekerEducationToAdd);
+	Result delete(int id);
 }

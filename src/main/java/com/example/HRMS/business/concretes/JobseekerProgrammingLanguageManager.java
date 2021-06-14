@@ -44,4 +44,10 @@ public class JobseekerProgrammingLanguageManager implements JobseekerProgramming
 		return new SuccessResult(Messages.added);
 	}
 
+	@Override
+	public Result delete(int id) {
+		this.jobseekerProgrammingLanguageDao.deleteById(id);
+		return new SuccessResult();
+	}
+
 }

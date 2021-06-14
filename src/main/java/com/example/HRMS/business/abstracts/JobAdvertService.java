@@ -11,8 +11,12 @@ import com.example.HRMS.entities.dtos.JobAdvertToAddDto;
 public interface JobAdvertService {
 
 	DataResult<List<JobAdvert>> getAll();
-	DataResult<List<JobAdvert>> getByActive(boolean active);
-	DataResult<List<JobAdvert>> getByActiveSortedByDateDesc(boolean active);
-	DataResult<List<JobAdvert>> getByActiveAndEmployerId(boolean active, int id);
+	DataResult<List<JobAdvert>> getByActiveAndApproved();
+	DataResult<List<JobAdvert>> getByActiveAndApprovedSortedByDateDesc();
+	DataResult<List<JobAdvert>> getByActiveAndApprovedAndEmployerId(int id);
+	DataResult<List<JobAdvert>> getByEmployerId(int id);
+	DataResult<List<JobAdvert>> getByNotApproved();
 	Result add(JobAdvertToAddDto jobAdvert);
+	Result update(JobAdvert jobAdvert);
+	DataResult<JobAdvert> getById(int id);
 }

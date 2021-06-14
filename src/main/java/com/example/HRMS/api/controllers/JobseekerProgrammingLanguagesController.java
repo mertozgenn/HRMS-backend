@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import com.example.HRMS.entities.dtos.JobseekerProgrammingLanguageToAddDto;
 
 @RestController
 @RequestMapping("/api/jobseekerProgrammingLanguages")
+@CrossOrigin
 public class JobseekerProgrammingLanguagesController {
 
 	private JobseekerProgrammingLanguageService jobseekerProgrammingLanguageService;
@@ -37,6 +39,11 @@ public class JobseekerProgrammingLanguagesController {
 	@PostMapping("/add")
 	public ResponseEntity<Result> add(@RequestBody JobseekerProgrammingLanguageToAddDto jobseekerProgrammingLanguageToAdd){
 		return ResponseEntity.ok(this.jobseekerProgrammingLanguageService.add(jobseekerProgrammingLanguageToAdd));
+	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int id) {
+		return this.jobseekerProgrammingLanguageService.delete(id);
 	}
 	
 }

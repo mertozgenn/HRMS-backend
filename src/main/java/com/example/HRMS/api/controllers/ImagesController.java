@@ -3,6 +3,7 @@ package com.example.HRMS.api.controllers;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import com.example.HRMS.core.utilities.results.Result;
 
 @RestController
 @RequestMapping("/api/images")
+@CrossOrigin
 public class ImagesController {
 
 	private ImageService imageService;
@@ -29,6 +31,7 @@ public class ImagesController {
 	}
 	
 	@PostMapping("/add")
+	@CrossOrigin
 	public Result add(@RequestParam int userId, @RequestBody MultipartFile file) {
 		try {
 			byte[] image = file.getBytes();
@@ -42,6 +45,11 @@ public class ImagesController {
 	@GetMapping("/getByUserId")
 	public DataResult<String> getByUserId(@RequestParam int userId){
 		return this.imageService.getByUserId(userId);
+	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int id) {
+		return this.imageService.delete(id);
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.example.HRMS.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.example.HRMS.entities.dtos.WorkExperienceToAddDto;
 
 @RestController
 @RequestMapping("/api/workexperiences")
+@CrossOrigin
 public class WorkExperiencesController {
 
 	private WorkExperienceService workExperienceService;
@@ -40,6 +42,11 @@ public class WorkExperiencesController {
 	@PostMapping("/add")
 	public Result add(@RequestBody WorkExperienceToAddDto workExperienceToAdd) {
 		return this.workExperienceService.add(workExperienceToAdd);
+	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int id) {
+		return this.workExperienceService.delete(id);
 	}
 	
 }

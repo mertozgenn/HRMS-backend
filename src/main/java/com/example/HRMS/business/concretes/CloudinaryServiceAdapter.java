@@ -70,4 +70,10 @@ public class CloudinaryServiceAdapter implements ImageService {
 	public DataResult<String> getByUserId(int userId) {
 		return new SuccessDataResult<String>(this.imageDao.getByUserId(userId).getFileName(), Messages.dataListed);
 	}
+
+	@Override
+	public Result delete(int id) {
+		this.imageDao.deleteById(id);
+		return new SuccessResult();
+	}
 }

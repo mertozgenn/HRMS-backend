@@ -11,4 +11,5 @@ public interface WorkExperienceService {
 	DataResult<List<WorkExperience>> getByUserId(int userId);
 	DataResult<List<WorkExperience>> getByUserIdSortedByQuitYearDesc(int userId);
 	Result add(WorkExperienceToAddDto workExperienceToAdd);
+	Result delete(int id);
 }

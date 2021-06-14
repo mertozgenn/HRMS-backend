@@ -43,4 +43,10 @@ public class JobseekerLanguageManager implements JobseekerLanguageService{
 		this.jobseekerLanguageDao.save(jobseekerLanguage);
 		return new SuccessResult(Messages.added);
 	}
+
+	@Override
+	public Result delete(int id) {
+		this.jobseekerLanguageDao.deleteById(id);
+		return new SuccessResult();
+	}
 }

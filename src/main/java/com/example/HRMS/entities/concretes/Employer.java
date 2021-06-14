@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.example.HRMS.core.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -35,9 +37,13 @@ public class Employer extends User {
 	private int id;
 	
 	@Column(name="website")
+	@NotBlank
+	@NotNull
 	private String website;
 	
 	@Column(name="phone_number")
+	@NotBlank
+	@NotNull
 	private String phoneNumber;
 	
 	
@@ -45,6 +51,8 @@ public class Employer extends User {
 	private boolean systemVerified;
 	
 	@Column(name="company_name")
+	@NotBlank
+	@NotNull
 	private String companyName;
 
 	@OneToMany(mappedBy = "employer")

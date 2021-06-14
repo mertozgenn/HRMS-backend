@@ -33,5 +33,12 @@ public class JobAdvertToAddDto {
 	@NotNull
 	private Date applicationDeadline;
 	
-	private boolean active;
+	private boolean remoteWork;
+	
+	private boolean workplaceWork;
+	
+	private boolean fullTime;
+	
+	private boolean partTime;
+	
 }

@@ -9,7 +9,9 @@ import com.example.HRMS.entities.concretes.JobAdvert;
 
 public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer>{
 
-	List<JobAdvert> getByActive(boolean active);
-	List<JobAdvert> getByActive(boolean active, Sort sort);
-	List<JobAdvert> getByActiveAndEmployer_id(boolean active, int id);
+	List<JobAdvert> getByActiveAndApproved(boolean active, boolean approved);
+	List<JobAdvert> getByActiveAndApproved(boolean active, boolean approved, Sort sort);
+	List<JobAdvert> getByActiveAndApprovedAndEmployer_id(boolean active, boolean approved, int id);
+	List<JobAdvert> getByEmployer_id(int id);
+	List<JobAdvert> getByApproved(boolean approved);
 }

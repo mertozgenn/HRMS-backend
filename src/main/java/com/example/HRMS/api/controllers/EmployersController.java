@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ import com.example.HRMS.entities.dtos.EmployerToRegisterDto;
 
 @RestController
 @RequestMapping("/api/employers")
+@CrossOrigin
 public class EmployersController {
 
 	private EmployerService employerService;
@@ -53,10 +55,25 @@ public class EmployersController {
 	public DataResult<Employer> getById(@RequestParam int id){
 		return this.employerService.getById(id);
 	}
+	
+	@GetMapping("/getByNotApproved")
+	public DataResult<List<Employer>> getByNotApproved(){
+		return this.employerService.getByNotApproved();
+	}
+	
+	@GetMapping("/getByApproved")
+	public DataResult<List<Employer>> getByApproved(){
+		return this.employerService.getByApproved();
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<Result> add(@Valid @RequestBody EmployerToRegisterDto employerToRegisterDto) {
 		return ResponseEntity.ok(this.employerService.add(employerToRegisterDto));
+	}
+	
+	@PostMapping("/update")
+	public ResponseEntity<Result> Update(@Valid @RequestBody Employer employer) {
+		return ResponseEntity.ok(this.employerService.update(employer));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

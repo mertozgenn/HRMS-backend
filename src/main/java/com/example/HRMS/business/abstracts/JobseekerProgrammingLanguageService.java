@@ -11,4 +11,5 @@ public interface JobseekerProgrammingLanguageService {
 
 	DataResult<List<JobseekerProgrammingLanguage>> getByUserId(int userId);
 	Result add(JobseekerProgrammingLanguageToAddDto jobseekerProgrammingLanguageToAddDto);
+	Result delete(int id);
 }

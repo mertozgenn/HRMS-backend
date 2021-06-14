@@ -33,6 +33,9 @@ public class JobAdvertManager implements JobAdvertService{
 	public DataResult<List<JobAdvert>> getAll() {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll());
 	}
+	public DataResult<JobAdvert> getById(int id){
+		return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.findById(id).get());
+	}
 	@Override
 	public Result add(JobAdvertToAddDto jobAdvertToAdd) {
 		JobAdvert jobAdvert = new JobAdvert();
@@ -49,30 +52,48 @@ public class JobAdvertManager implements JobAdvertService{
 		position.setId(jobAdvertToAdd.getPositionId());
 		jobAdvert.setPosition(position);
 		
-		jobAdvert.setActive(jobAdvertToAdd.isActive());
+		jobAdvert.setApproved(false);
+		jobAdvert.setActive(true);
 		jobAdvert.setApplicationDeadline(jobAdvertToAdd.getApplicationDeadline());
 		jobAdvert.setJobDescription(jobAdvertToAdd.getJobDescription());
 		jobAdvert.setMaximumSalary(jobAdvertToAdd.getMaximumSalary());
 		jobAdvert.setMinimumSalary(jobAdvertToAdd.getMinimumSalary());
 		jobAdvert.setOpenPosition(jobAdvertToAdd.getOpenPosition());
 		jobAdvert.setPublishingDate(new Date());
+		jobAdvert.setFullTime(jobAdvertToAdd.isFullTime());
+		jobAdvert.setPartTime(jobAdvertToAdd.isPartTime());
+		jobAdvert.setWorkplaceWork(jobAdvertToAdd.isWorkplaceWork());
+		jobAdvert.setRemoteWork(jobAdvertToAdd.isRemoteWork());
 		
 		this.jobAdvertDao.save(jobAdvert);
 		return new SuccessResult(Messages.added);
 	}
 	@Override
-	public DataResult<List<JobAdvert>> getByActive(boolean active) {
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActive(active), Messages.dataListed);
+	public DataResult<List<JobAdvert>> getByActiveAndApproved() {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActiveAndApproved(true, true), Messages.dataListed);
 	}
 	@Override
-	public DataResult<List<JobAdvert>> getByActiveAndEmployerId(boolean active, int id) {
+	public DataResult<List<JobAdvert>> getByActiveAndApprovedAndEmployerId(int id) {
 		
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActiveAndEmployer_id(active, id));
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActiveAndApprovedAndEmployer_id(true, true, id));
 	}
 	@Override
-	public DataResult<List<JobAdvert>> getByActiveSortedByDateDesc(boolean active) {
+	public DataResult<List<JobAdvert>> getByActiveAndApprovedSortedByDateDesc() {
 		Sort sort = Sort.by(Sort.Direction.DESC, "publishingDate");
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActive(active, sort));
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActiveAndApproved(true, true, sort));
+	}
+	@Override
+	public DataResult<List<JobAdvert>> getByEmployerId(int id) {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_id(id));
+	}
+	@Override
+	public DataResult<List<JobAdvert>> getByNotApproved() {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByApproved(false));
+	}
+	@Override
+	public Result update(JobAdvert jobAdvert) {
+		this.jobAdvertDao.save(jobAdvert);
+		return new SuccessResult();
 	}
 
 }
