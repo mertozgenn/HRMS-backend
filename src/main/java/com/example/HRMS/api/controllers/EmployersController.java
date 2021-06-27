@@ -27,7 +27,9 @@ import com.example.HRMS.core.utilities.results.DataResult;
 import com.example.HRMS.core.utilities.results.ErrorDataResult;
 import com.example.HRMS.core.utilities.results.Result;
 import com.example.HRMS.entities.concretes.Employer;
+import com.example.HRMS.entities.concretes.EmployerToUpdate;
 import com.example.HRMS.entities.dtos.EmployerToRegisterDto;
+import com.example.HRMS.entities.dtos.EmployerToUpdateDto;
 
 @RestController
 @RequestMapping("/api/employers")
@@ -71,9 +73,24 @@ public class EmployersController {
 		return ResponseEntity.ok(this.employerService.add(employerToRegisterDto));
 	}
 	
+	@GetMapping("/getallPendingUpdates")
+	public DataResult<List<EmployerToUpdateDto>> getAllPendingUpdates(){
+		return this.employerService.getAllPendingUpdates();
+	}
+	
+	@GetMapping("/getPendingUpdatesByUserId")
+	public DataResult<EmployerToUpdate> getPendingUpdatesByUserId(@RequestParam int userId){
+		return this.employerService.getPendingUpdatesByUserId(userId);
+	}
+	
 	@PostMapping("/update")
-	public ResponseEntity<Result> Update(@Valid @RequestBody Employer employer) {
-		return ResponseEntity.ok(this.employerService.update(employer));
+	public ResponseEntity<Result> Update(@RequestBody EmployerToUpdate employerToUpdate) {
+		return ResponseEntity.ok(this.employerService.update(employerToUpdate));
+	}
+	
+	@PostMapping("/confirmUpdate")
+	public ResponseEntity<Result> confirmUpdate(@RequestBody EmployerToUpdate employerToUpdate) {
+		return ResponseEntity.ok(this.employerService.confirmUpdate(employerToUpdate));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

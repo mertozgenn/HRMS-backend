@@ -57,8 +57,13 @@ public class JobAdvertsController {
 	}
 	
 	@GetMapping("/getallByActiveAndApprovedSortedByDate")
-	public DataResult<List<JobAdvert>> getAllByActiveSortedByDate(){
-		return this.jobAdvertService.getByActiveAndApprovedSortedByDateDesc();
+	public DataResult<List<JobAdvert>> getAllByActiveSortedByDate(@RequestParam int pageNo, @RequestParam int pageSize){
+		return this.jobAdvertService.getByActiveAndApprovedSortedByDateDesc(pageNo - 1, pageSize);
+	}
+	
+	@GetMapping("/getPageCount")
+	public DataResult<Integer> getPageCount(@RequestParam int pageSize){
+		return this.jobAdvertService.getPageCount(pageSize);
 	}
 	
 	@GetMapping("/getallByActiveAndApprovedAndEmployer")

@@ -42,4 +42,8 @@ public class Position {
 	@OneToMany(mappedBy = "position")
 	@JsonIgnore
 	private List<WorkExperience> workExperiences;
+	
+	@OneToMany(mappedBy = "position")
+	@JsonIgnore
+	private List<SystemEmployee> systemEmployees;
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -78,9 +80,10 @@ public class JobAdvertManager implements JobAdvertService{
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActiveAndApprovedAndEmployer_id(true, true, id));
 	}
 	@Override
-	public DataResult<List<JobAdvert>> getByActiveAndApprovedSortedByDateDesc() {
+	public DataResult<List<JobAdvert>> getByActiveAndApprovedSortedByDateDesc(int pageNo, int pageSize) {
 		Sort sort = Sort.by(Sort.Direction.DESC, "publishingDate");
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActiveAndApproved(true, true, sort));
+		Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActiveAndApproved(true, true, pageable));
 	}
 	@Override
 	public DataResult<List<JobAdvert>> getByEmployerId(int id) {
@@ -95,5 +98,9 @@ public class JobAdvertManager implements JobAdvertService{
 		this.jobAdvertDao.save(jobAdvert);
 		return new SuccessResult();
 	}
-
+	@Override
+	public DataResult<Integer> getPageCount(int pageSize) {
+		int pageCount = (int) Math.ceil((double)jobAdvertDao.count() / pageSize);
+		return new SuccessDataResult<Integer>(pageCount);
+	}
 }

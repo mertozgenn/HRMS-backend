@@ -12,7 +12,8 @@ public interface JobAdvertService {
 
 	DataResult<List<JobAdvert>> getAll();
 	DataResult<List<JobAdvert>> getByActiveAndApproved();
-	DataResult<List<JobAdvert>> getByActiveAndApprovedSortedByDateDesc();
+	DataResult<List<JobAdvert>> getByActiveAndApprovedSortedByDateDesc(int pageNo, int pageSize);
+	DataResult<Integer> getPageCount(int pageSize);
 	DataResult<List<JobAdvert>> getByActiveAndApprovedAndEmployerId(int id);
 	DataResult<List<JobAdvert>> getByEmployerId(int id);
 	DataResult<List<JobAdvert>> getByNotApproved();

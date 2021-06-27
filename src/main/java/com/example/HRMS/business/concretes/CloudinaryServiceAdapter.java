@@ -45,7 +45,6 @@ public class CloudinaryServiceAdapter implements ImageService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(cloudinaryUrl.toString());
 		return (String)cloudinaryUrl.get("public_id");
 	}
 
@@ -56,6 +55,17 @@ public class CloudinaryServiceAdapter implements ImageService {
 			fileName = uploadFile(file);
 		} catch (IllegalStateException e1) {
 			e1.printStackTrace();
+		}
+		
+		Image oldImage = this.imageDao.getByUserId(userId);
+		if (oldImage != null) {
+			this.imageDao.delete(oldImage);
+			Cloudinary cloudinary = getCloudinaryClient();
+			try {
+				cloudinary.uploader().destroy(oldImage.getFileName(), ObjectUtils.asMap("invalidate", true ));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		Image image = new Image();

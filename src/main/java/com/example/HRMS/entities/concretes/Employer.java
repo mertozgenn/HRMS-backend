@@ -58,6 +58,7 @@ public class Employer extends User {
 	@OneToMany(mappedBy = "employer")
 	private List<JobAdvert> jobAdverts;
 	
+	
 	public Employer(String email, String password, String website, String phoneNumber,
 			String companyName) {
 		super(email, password);

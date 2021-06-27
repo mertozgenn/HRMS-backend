@@ -42,4 +42,12 @@ public class UserManager implements UserService{
 	public DataResult<List<User>> getAll() {
 		return new SuccessDataResult<List<User>>(this.userDao.findAll());
 	}
+	@Override
+	public DataResult<User> getById(int id) {
+		User user = this.userDao.getById(id);
+		if (user != null) {
+			return new SuccessDataResult<User>(user);
+		}
+		return new ErrorDataResult<User>(Messages.notFound); 
+	}
 }
